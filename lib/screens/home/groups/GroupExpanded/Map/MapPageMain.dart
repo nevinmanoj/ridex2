@@ -12,8 +12,8 @@ import '../../../../../services/providers/MyLocMapOptionProvider.dart';
 import 'MyLocMarker.dart';
 
 class MapPageMain extends StatefulWidget {
-  String id;
-  MapPageMain({required this.id});
+  final String id;
+  const MapPageMain({required this.id});
   @override
   State<MapPageMain> createState() => _MapPageMainState();
 }
@@ -25,12 +25,12 @@ class _MapPageMainState extends State<MapPageMain> {
 
   @override
   Widget build(BuildContext context) {
-    double wt = MediaQuery.of(context).size.width;
-    double ht = MediaQuery.of(context).size.height;
+    // double wt = MediaQuery.of(context).size.width;
+    // double ht = MediaQuery.of(context).size.height;
 
     var user = Provider.of<User?>(context);
     // var location = Provider.of<LocationProvider>(context);
-    bool locEnabled = false;
+
     return StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection("$groupsDb/${widget.id}/members")
@@ -59,6 +59,7 @@ class _MapPageMainState extends State<MapPageMain> {
               userAgentPackageName: 'com.example.app',
             ),
           ];
+          bool locEnabled = false;
           for (var doc in list) {
             if (doc.data()['locEnabled']) {
               String latitude = doc.data()['latitude'];
