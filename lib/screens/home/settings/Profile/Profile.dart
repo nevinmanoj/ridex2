@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../services/database.dart';
-import '../../../../services/providers.dart';
+import '../../../../services/providers/UserInfoProvider.dart';
 import '../../../../shared/constants.dart';
 
 class Profile extends StatefulWidget {

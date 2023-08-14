@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ridex/screens/home/groups/GroupExpanded/GroupExpandedMain.dart';
 import 'package:ridex/services/database.dart';
-import 'package:ridex/services/providers.dart';
+import 'package:ridex/services/providers/UserInfoProvider.dart';
 
 import '../../../../shared/constants.dart';
 

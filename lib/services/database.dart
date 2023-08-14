@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:ridex/screens/home/groups/addGroup/createGroup.dart';
 
 import '../shared/Db.dart';
 

@@ -4,9 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
+import 'package:ridex/screens/home/dev/devdash.dart';
 
 import '../../../services/auth.dart';
-import '../../../services/providers.dart';
+import '../../../services/providers/UserInfoProvider.dart';
 import 'Profile/Profile.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -44,6 +45,30 @@ class SettingsScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 18),
                   ),
                 )),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(wt * 0.01, ht * 0.005, wt * 0.01, 0),
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => DevDash()));
+            },
+            child: Container(
+              // decoration: ,
+              color: Colors.grey[300],
+              width: wt,
+              height: ht * 0.06,
+              child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(wt * 0.03, 0, 0, 0),
+                    child: Text(
+                      "Dev",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  )),
+            ),
           ),
         ),
         Padding(

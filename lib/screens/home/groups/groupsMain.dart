@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ridex/shared/constants.dart';
 
-import '../../../services/providers.dart';
+import '../../../services/providers/UserInfoProvider.dart';
 import 'GroupExpanded/GroupExpandedMain.dart';
 import 'addGroup/addGroupMain.dart';
 

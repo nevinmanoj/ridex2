@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'screens/wrapper.dart';
 import 'services/auth.dart';
-import 'services/providers.dart';
+import 'services/providers/UserInfoProvider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
