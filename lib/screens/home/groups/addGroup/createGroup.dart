@@ -48,6 +48,7 @@ class _CreateGroupState extends State<CreateGroup> {
           ),
         ),
         ElevatedButton(
+            style: buttonDecoration,
             onPressed: () async {
               if (_formKey.currentState!.validate()) {
                 String groupId = await DatabaseService(uid: user!.uid)

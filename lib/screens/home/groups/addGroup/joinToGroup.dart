@@ -49,6 +49,7 @@ class _AddToGroupState extends State<AddToGroup> {
           ),
         ),
         ElevatedButton(
+            style: buttonDecoration,
             onPressed: () async {
               if (_formKey.currentState!.validate()) {
                 String? gname = await DatabaseService(uid: user!.uid)

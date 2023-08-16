@@ -6,10 +6,12 @@ import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:ridex/screens/home/groups/GroupExpanded/Map/MapControls.dart';
+import 'package:ridex/screens/home/groups/GroupExpanded/Map/mapLegend.dart';
 import 'package:ridex/shared/Db.dart';
 
 import '../../../../../services/providers/MyLocMapOptionProvider.dart';
 import 'MyLocMarker.dart';
+import 'colorGenerator.dart';
 
 class MapPageMain extends StatefulWidget {
   final String id;
@@ -59,16 +61,21 @@ class _MapPageMainState extends State<MapPageMain> {
               userAgentPackageName: 'com.example.app',
             ),
           ];
+          List<String> names = [];
+          List colors = generateDistinctColors(
+              list.where((element) => element.data()['locEnabled']).length);
+
           bool locEnabled = false;
-          for (var doc in list) {
-            if (doc.data()['locEnabled']) {
-              String latitude = doc.data()['latitude'];
-              String longitude = doc.data()['longitude'];
-              String heading = doc.data()['heading'];
+          // for (var doc in list) {
+          for (int i = 0; i < list.length; i++) {
+            if (list[i].data()['locEnabled']) {
+              String latitude = list[i].data()['latitude'];
+              String longitude = list[i].data()['longitude'];
+              String heading = list[i].data()['heading'];
               if (latitude != "null" &&
                   longitude != "null" &&
                   heading != "null") {
-                if (doc.id == user!.uid) {
+                if (list[i].id == user!.uid) {
                   locEnabled = true;
                   // markers.add(CurrentLocationLayer(
                   //   followOnLocationUpdate: FollowOnLocationUpdate.always,
@@ -85,6 +92,7 @@ class _MapPageMainState extends State<MapPageMain> {
                   //   ),
                   // ));
                 } else {
+                  names.add(list[i].data()['name']);
                   markers.add(
                     createMarker(
                         position: LocationMarkerPosition(
@@ -94,7 +102,7 @@ class _MapPageMainState extends State<MapPageMain> {
                         ),
                         heading: LocationMarkerHeading(
                             heading: double.parse(heading), accuracy: 0),
-                        color: Colors.cyan),
+                        color: colors[i]),
                   );
                 }
               }
@@ -106,18 +114,71 @@ class _MapPageMainState extends State<MapPageMain> {
                   fOption: FollowOnLocationUpdate.always,
                   hOption: TurnOnHeadingUpdate.always),
               builder: (context, child) {
-                return FlutterMap(
-                  options: MapOptions(
-                    onPositionChanged: (position, hasGesture) => {},
-                    center: LatLng(10.000081581192912, 76.29059452482811),
-                    zoom: zoom,
-                  ),
-                  nonRotatedChildren: [
-                    MapControls(),
-                  ],
+                return Stack(
                   children: [
-                    ...markers,
-                    locEnabled ? MyLocMarker() : Container()
+                    FlutterMap(
+                      options: MapOptions(
+                        onPositionChanged: (position, hasGesture) => {},
+                        center: LatLng(10.000081581192912, 76.29059452482811),
+                        zoom: zoom,
+                      ),
+                      nonRotatedChildren: [
+                        MapControls(),
+                      ],
+                      children: [
+                        ...markers,
+                        locEnabled ? MyLocMarker() : Container()
+                      ],
+                    ),
+                    Positioned(
+                        left: 20,
+                        top: 20,
+                        child: MapLegend(
+                          // colors: colors,
+                          // names: names,
+                          colors: [
+                            HSVColor.fromAHSV(1.0, 0.7 * 360, 0.7, 0.9)
+                                .toColor(),
+                            HSVColor.fromAHSV(1.0, 0.3 * 360, 0.7, 0.9)
+                                .toColor(),
+                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
+                                .toColor(),
+                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
+                                .toColor(),
+                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
+                                .toColor(),
+                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
+                                .toColor(),
+                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
+                                .toColor(),
+                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
+                                .toColor(),
+                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
+                                .toColor(),
+                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
+                                .toColor(),
+                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
+                                .toColor(),
+                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
+                                .toColor(),
+                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
+                                .toColor(),
+                          ],
+                          names: [
+                            "Nevin",
+                            "dev",
+                            "Nevin",
+                            "Nevin",
+                            "Nevin",
+                            "Nevin",
+                            "Nevin",
+                            "Nevin",
+                            "Nevin",
+                            "Nevin",
+                            "Nevin",
+                            "Nevin",
+                          ],
+                        )),
                   ],
                 );
               });

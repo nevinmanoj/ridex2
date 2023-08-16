@@ -1,69 +1,64 @@
 import 'package:flutter/material.dart';
-
-class SharedValue extends ValueNotifier<int> {
-  SharedValue(int value) : super(value);
-}
+import 'package:googleapis/forms/v1.dart';
 
 class Test extends StatefulWidget {
+  const Test({super.key});
+
   @override
   State<Test> createState() => _TestState();
 }
 
 class _TestState extends State<Test> {
-  final SharedValue sharedValue = SharedValue(0);
-
+  List colors = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Value Sharing Example'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Child1(sharedValue: sharedValue),
-            Child2(sharedValue: sharedValue),
-          ],
-        ),
-      ),
+      body: Container(
+          child: Column(
+        children: [
+          SizedBox(
+            height: 100,
+          ),
+          Center(
+            child: SizedBox(
+              height: 100,
+              width: 300,
+              child: TextField(
+                keyboardType: TextInputType.phone,
+                onChanged: (val) {
+                  if (val.isNotEmpty) {
+                    int n = int.parse(val);
+                    setState(() {
+                      colors = generateDistinctColors(n);
+                    });
+                  }
+                },
+              ),
+            ),
+          ),
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: colors.map((color) {
+              return Container(
+                width: 50,
+                height: 50,
+                color: color,
+              );
+            }).toList(),
+          ),
+        ],
+      )),
     );
   }
 }
 
-class Child1 extends StatefulWidget {
-  final SharedValue sharedValue;
-
-  Child1({required this.sharedValue});
-
-  @override
-  State<Child1> createState() => _Child1State();
-}
-
-class _Child1State extends State<Child1> {
-  @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder<int>(
-      valueListenable: widget.sharedValue,
-      builder: (context, value, child) {
-        return Text('Child 1 Value: $value');
-      },
-    );
+List generateDistinctColors(int numColors) {
+  List distinctColors = [];
+  for (int i = 0; i < numColors; i++) {
+    double hue = i / numColors;
+    Color color = HSVColor.fromAHSV(1.0, hue * 360, 0.7, 0.9).toColor();
+    distinctColors.add(color);
   }
-}
-
-class Child2 extends StatelessWidget {
-  final SharedValue sharedValue;
-
-  Child2({required this.sharedValue});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        sharedValue.value++; // Increment the shared value
-      },
-      child: Text('Increment Child 1 Value'),
-    );
-  }
+  return distinctColors;
 }

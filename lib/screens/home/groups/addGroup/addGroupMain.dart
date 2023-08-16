@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'addToGroup.dart';
+import 'joinToGroup.dart';
 import 'createGroup.dart';
 
 class AddGroupMain extends StatefulWidget {
