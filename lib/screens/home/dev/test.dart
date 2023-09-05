@@ -1,64 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:googleapis/forms/v1.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class Test extends StatefulWidget {
-  const Test({super.key});
-
   @override
-  State<Test> createState() => _TestState();
+  _QRCodeScannerScreenState createState() => _QRCodeScannerScreenState();
 }
 
-class _TestState extends State<Test> {
-  List colors = [];
+class _QRCodeScannerScreenState extends State<Test> {
+  late QRViewController controller;
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          child: Column(
-        children: [
-          SizedBox(
-            height: 100,
-          ),
-          Center(
-            child: SizedBox(
-              height: 100,
-              width: 300,
-              child: TextField(
-                keyboardType: TextInputType.phone,
-                onChanged: (val) {
-                  if (val.isNotEmpty) {
-                    int n = int.parse(val);
-                    setState(() {
-                      colors = generateDistinctColors(n);
-                    });
-                  }
-                },
-              ),
-            ),
-          ),
-          Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: colors.map((color) {
-              return Container(
-                width: 50,
-                height: 50,
-                color: color,
-              );
-            }).toList(),
-          ),
-        ],
-      )),
+      appBar: AppBar(
+        title: Text('QR Code Scanner'),
+      ),
+      body: QRView(
+        key: qrKey,
+        onQRViewCreated: (QRViewController controller) {
+          this.controller = controller;
+          controller.scannedDataStream.listen((scanData) {
+            // Handle the scanned data, e.g., navigate to a new screen or display it.
+            print("Scanned Data: $scanData");
+          });
+        },
+      ),
     );
   }
-}
 
-List generateDistinctColors(int numColors) {
-  List distinctColors = [];
-  for (int i = 0; i < numColors; i++) {
-    double hue = i / numColors;
-    Color color = HSVColor.fromAHSV(1.0, hue * 360, 0.7, 0.9).toColor();
-    distinctColors.add(color);
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
-  return distinctColors;
 }

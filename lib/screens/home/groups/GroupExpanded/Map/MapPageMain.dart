@@ -21,10 +21,6 @@ class MapPageMain extends StatefulWidget {
 }
 
 class _MapPageMainState extends State<MapPageMain> {
-  double zoom = 15;
-  LocationMarkerHeading heading =
-      LocationMarkerHeading(heading: 0, accuracy: 0);
-
   @override
   Widget build(BuildContext context) {
     // double wt = MediaQuery.of(context).size.width;
@@ -120,7 +116,7 @@ class _MapPageMainState extends State<MapPageMain> {
                       options: MapOptions(
                         onPositionChanged: (position, hasGesture) => {},
                         center: LatLng(10.000081581192912, 76.29059452482811),
-                        zoom: zoom,
+                        zoom: 15,
                       ),
                       nonRotatedChildren: [
                         MapControls(),
@@ -134,50 +130,8 @@ class _MapPageMainState extends State<MapPageMain> {
                         left: 20,
                         top: 20,
                         child: MapLegend(
-                          // colors: colors,
-                          // names: names,
-                          colors: [
-                            HSVColor.fromAHSV(1.0, 0.7 * 360, 0.7, 0.9)
-                                .toColor(),
-                            HSVColor.fromAHSV(1.0, 0.3 * 360, 0.7, 0.9)
-                                .toColor(),
-                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
-                                .toColor(),
-                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
-                                .toColor(),
-                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
-                                .toColor(),
-                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
-                                .toColor(),
-                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
-                                .toColor(),
-                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
-                                .toColor(),
-                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
-                                .toColor(),
-                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
-                                .toColor(),
-                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
-                                .toColor(),
-                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
-                                .toColor(),
-                            HSVColor.fromAHSV(1.0, 0.6 * 360, 0.7, 0.9)
-                                .toColor(),
-                          ],
-                          names: [
-                            "Nevin",
-                            "dev",
-                            "Nevin",
-                            "Nevin",
-                            "Nevin",
-                            "Nevin",
-                            "Nevin",
-                            "Nevin",
-                            "Nevin",
-                            "Nevin",
-                            "Nevin",
-                            "Nevin",
-                          ],
+                          colors: colors,
+                          names: names,
                         )),
                   ],
                 );

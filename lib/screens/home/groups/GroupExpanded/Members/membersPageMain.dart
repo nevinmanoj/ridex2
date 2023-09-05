@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ridex/shared/Db.dart';
 
+import '../../../../../shared/constants.dart';
+import 'addMember.dart';
 import 'member.dart';
 
 class MembersPageMain extends StatefulWidget {
@@ -47,59 +49,83 @@ class _MembersPageMainState extends State<MembersPageMain> {
           // List<Map<String, dynamic>> data = list
           //     .map((document) => document.data() as Map<String, dynamic>)
           //     .toList();
-          return ListView.builder(
-              itemCount: list.length,
-              itemBuilder: (_, i) {
-                // if (i == 0) {
-                return YouInGroup(
-                  data: list[i],
-                );
-                // }
-                // return Padding(
-                //   padding:
-                //       EdgeInsets.fromLTRB(wt * 0.03, ht * 0.01, wt * 0.03, 0),
-                //   child: Container(
-                //     padding: EdgeInsets.fromLTRB(wt * 0.05, 0, 0, 0),
-                //     width: wt,
-                //     height: ht * 0.08,
-                //     decoration: BoxDecoration(
-                //       border: Border.all(
-                //         color: Colors.grey.withOpacity(0.3),
-                //       ),
-                //       borderRadius: BorderRadius.circular(5),
-                //     ),
-                //     child: Row(
-                //       children: [
-                //         Align(
-                //           alignment: Alignment.centerLeft,
-                //           child: Text(
-                //             list[i]['name'],
-                //             style: TextStyle(fontSize: 20),
-                //           ),
-                //         ),
-                //         Spacer(),
-                //         list[i]['isAdmin']
-                //             ? Padding(
-                //                 padding: EdgeInsets.only(right: wt * 0.03),
-                //                 child: Align(
-                //                     alignment: Alignment.centerRight,
-                //                     child: Text(
-                //                       "admin",
-                //                       style: TextStyle(color: Colors.green),
-                //                     )),
-                //               )
-                //             : Container(),
-                //         Padding(
-                //           padding: EdgeInsets.only(right: wt * 0.0),
-                //           child: list[i]['locEnabled']
-                //               ? Icon(Icons.location_on)
-                //               : Icon(Icons.location_off),
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // );
-              });
+          return Stack(
+            children: [
+              ListView.builder(
+                  itemCount: list.length,
+                  itemBuilder: (_, i) {
+                    // if (i == 0) {
+                    return YouInGroup(
+                      data: list[i],
+                    );
+                    // }
+                    // return Padding(
+                    //   padding:
+                    //       EdgeInsets.fromLTRB(wt * 0.03, ht * 0.01, wt * 0.03, 0),
+                    //   child: Container(
+                    //     padding: EdgeInsets.fromLTRB(wt * 0.05, 0, 0, 0),
+                    //     width: wt,
+                    //     height: ht * 0.08,
+                    //     decoration: BoxDecoration(
+                    //       border: Border.all(
+                    //         color: Colors.grey.withOpacity(0.3),
+                    //       ),
+                    //       borderRadius: BorderRadius.circular(5),
+                    //     ),
+                    //     child: Row(
+                    //       children: [
+                    //         Align(
+                    //           alignment: Alignment.centerLeft,
+                    //           child: Text(
+                    //             list[i]['name'],
+                    //             style: TextStyle(fontSize: 20),
+                    //           ),
+                    //         ),
+                    //         Spacer(),
+                    //         list[i]['isAdmin']
+                    //             ? Padding(
+                    //                 padding: EdgeInsets.only(right: wt * 0.03),
+                    //                 child: Align(
+                    //                     alignment: Alignment.centerRight,
+                    //                     child: Text(
+                    //                       "admin",
+                    //                       style: TextStyle(color: Colors.green),
+                    //                     )),
+                    //               )
+                    //             : Container(),
+                    //         Padding(
+                    //           padding: EdgeInsets.only(right: wt * 0.0),
+                    //           child: list[i]['locEnabled']
+                    //               ? Icon(Icons.location_on)
+                    //               : Icon(Icons.location_off),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // );
+                  }),
+              Positioned(
+                  bottom: 15,
+                  right: 20,
+                  child: Container(
+                    height: 60,
+                    width: 60,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: primaryAppColor,
+                          shape: CircleBorder()),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (_) => AddMembers(
+                                  id: widget.id,
+                                ));
+                      },
+                      child: Icon(Icons.share),
+                    ),
+                  ))
+            ],
+          );
         });
   }
 }

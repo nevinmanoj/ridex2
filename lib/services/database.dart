@@ -50,7 +50,6 @@ class DatabaseService {
     DocumentSnapshot docSnapshot =
         await FirebaseFirestore.instance.collection(groupsDb).doc(id).get();
     if (!docSnapshot.exists) {
-      print("sdsdfsdfsdfsdf");
       return null;
     }
 
@@ -81,7 +80,7 @@ class DatabaseService {
   }
 
   Future changeLocationStatus({required bool enabled, required groupId}) async {
-    await FirebaseFirestore.instance
+    FirebaseFirestore.instance
         .collection("$groupsDb/$groupId/members")
         .doc(uid)
         .set({"locEnabled": enabled}, SetOptions(merge: true));
@@ -92,7 +91,7 @@ class DatabaseService {
       required String latitude,
       required String heading,
       required groupId}) async {
-    await FirebaseFirestore.instance
+    FirebaseFirestore.instance
         .collection("$groupsDb/$groupId/members")
         .doc(uid)
         .set({

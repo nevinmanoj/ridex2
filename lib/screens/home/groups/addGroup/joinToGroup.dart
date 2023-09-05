@@ -24,6 +24,7 @@ class _AddToGroupState extends State<AddToGroup> {
     var userInfo = Provider.of<UserInfoProvider>(context);
     double wt = MediaQuery.of(context).size.width;
     double ht = MediaQuery.of(context).size.height;
+
     return Form(
       key: _formKey,
       child: Column(children: [
@@ -42,6 +43,17 @@ class _AddToGroupState extends State<AddToGroup> {
             onChanged: (value) {},
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
+              suffixIcon: IconButton(
+                icon: const Icon(
+                  Icons.qr_code_scanner,
+                  color: primaryAppColor,
+                ),
+                onPressed: () {
+                  try {} catch (e) {
+                    print(e);
+                  }
+                },
+              ),
               border: InputBorder.none,
               hintStyle: TextStyle(color: Colors.grey.withOpacity(0.8)),
               hintText: 'Group Code',
